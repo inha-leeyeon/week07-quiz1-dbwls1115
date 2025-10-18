@@ -16,6 +16,7 @@ Square::Square(const string name, int x, int y, unsigned int side)
 	:Point(x, y) {
 	this->name = name;
 	this->side = side;
+	setArea(side);
 }
 unsigned int Square::getSide() const { return side; }
 unsigned int Square::getArea() const { return area; }
@@ -56,29 +57,30 @@ int main() {
 
 	cout << "\nSquares in increasing order of max x-coordinate" << endl;
 	for (int i = 0; i < num; i++) {
+
 		for (int j = 0; j < num - 1 - i; j++) {
-			if (squares[j].getX() > squares[j + 1].getX()) {
+			if (squares[j].getX() + static_cast<int>(squares[j].getSide()) > squares[j + 1].getX() + static_cast<int>(squares[j + 1].getSide())) {
 				Square temp(squares[j]);
 				squares[j] = squares[j + 1];
 				squares[j + 1] = temp;
 			}
 		}
 
-		cout << squares[i].getName() << "(" << squares[i].getX() << "," << squares[i].getY()
+		cout << squares[i].getName() << "(" << squares[i].getX() + static_cast<int>(squares[i].getSide()) << "," << squares[i].getY()
 			<< ") side=" << squares[i].getSide() << ", area=" << squares[i].getArea() << endl;
 	}
 
 	cout << "\nSquares in increasing order of max y-coordinate" << endl;
 	for (int i = 0; i < num; i++) {
 		for (int j = 0; j < num - 1 - i; j++) {
-			if (squares[j].getY() > squares[j + 1].getY()) {
+			if (squares[j].getY() + static_cast<int>(squares[j].getSide()) > squares[j + 1].getY() + static_cast<int>(squares[j + 1].getSide())) {
 				Square temp(squares[j]);
 				squares[j] = squares[j + 1];
 				squares[j + 1] = temp;
 			}
 		}
 
-		cout << squares[i].getName() << "(" << squares[i].getX() << "," << squares[i].getY()
+		cout << squares[i].getName() << "(" << squares[i].getX() << "," << squares[i].getY() + static_cast<int>(squares[i].getSide())
 			<< ") side=" << squares[i].getSide() << ", area=" << squares[i].getArea() << endl;
 	}
 
